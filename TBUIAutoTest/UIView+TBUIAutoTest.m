@@ -11,6 +11,10 @@
 #import <objc/runtime.h>
 #import "TBUIAutoTest.h"
 
+#define kiOS8Later SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")
+
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 @implementation UIView (TBUIAutoTest)
 + (void)load
 {
@@ -67,17 +71,19 @@
 - (void)longPress:(UILongPressGestureRecognizer *)recognizer
 {
     if (recognizer.state == UIGestureRecognizerStateEnded) {
-        CGFloat previousWidth = self.layer.borderWidth;
-        CGColorRef previousColor =  self.layer.borderColor;
-        self.layer.borderWidth = 3;
-        self.layer.borderColor = [UIColor redColor].CGColor;
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"自动化测试Label" message:self.accessibilityIdentifier preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            self.layer.borderWidth = previousWidth;
-            self.layer.borderColor = previousColor;
-        }];
-        [alert addAction:confirmAction];
-        [[self viewController] presentViewController:alert animated:YES completion:nil];
+        if (kiOS8Later) {
+            CGFloat previousWidth = self.layer.borderWidth;
+            CGColorRef previousColor =  self.layer.borderColor;
+            self.layer.borderWidth = 3;
+            self.layer.borderColor = [UIColor redColor].CGColor;
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"自动化测试Label" message:self.accessibilityIdentifier preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                self.layer.borderWidth = previousWidth;
+                self.layer.borderColor = previousColor;
+            }];
+            [alert addAction:confirmAction];
+            [[self viewController] presentViewController:alert animated:YES completion:nil];
+        }
     }
 }
 
