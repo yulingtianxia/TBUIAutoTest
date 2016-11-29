@@ -15,12 +15,17 @@
 
 @implementation ViewController
 
++ (void)load
+{
+    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kAutoTestUIKey: @(YES)}];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [TBUIAutoTest sharedInstance].longPressEnabled = YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kAutoTestUIKey: @(YES)}];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [TBUIAutoTest sharedInstance].longPressEnabled = NO;
+    
     UILabel *testLabel = [[UILabel alloc] init];
     testLabel.textColor = [UIColor blackColor];
     testLabel.text = @"测试";
