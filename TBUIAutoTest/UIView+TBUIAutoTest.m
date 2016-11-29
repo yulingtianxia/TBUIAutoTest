@@ -36,9 +36,7 @@
         dispatch_once(&onceToken, ^{
             [self swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
             [self swizzleSelector:@selector(accessibilityLabel) withAnotherSelector:@selector(tb_accessibilityLabel)];
-            if ([TBUIAutoTest sharedInstance].isLongPressEnabled) {
-                [self swizzleSelector:@selector(addSubview:) withAnotherSelector:@selector(tb_addSubview:)];
-            }
+            [self swizzleSelector:@selector(addSubview:) withAnotherSelector:@selector(tb_addSubview:)];
         });
     }
     
@@ -150,6 +148,9 @@
         return;
     }
     [self tb_addSubview:view];
+    if (![TBUIAutoTest sharedInstance].isLongPressEnabled) {
+        return;
+    }
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:view action:@selector(longPress:)];
     longPress.delegate = [TBUIAutoTest sharedInstance];
     [view addGestureRecognizer:longPress];
