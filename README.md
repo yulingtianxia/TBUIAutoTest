@@ -1,5 +1,11 @@
 # TBUIAutoTest
 
+[![CI Status](http://img.shields.io/travis/yulingtianxia/TBUIAutoTest.svg?style=flat)](https://travis-ci.org/yulingtianxia/TBUIAutoTest)
+[![Version](https://img.shields.io/cocoapods/v/TBUIAutoTest.svg?style=flat)](http://cocoapods.org/pods/TBUIAutoTest)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![License](https://img.shields.io/cocoapods/l/TBUIAutoTest.svg?style=flat)](http://cocoapods.org/pods/TBUIAutoTest)
+[![Platform](https://img.shields.io/cocoapods/p/TBUIAutoTest.svg?style=flat)](http://cocoapods.org/pods/TBUIAutoTest)
+
 Generating UI test label automatically.
 
 ## Articles
@@ -35,7 +41,7 @@ Then, run the following command:
 $ pod install
 ```
 
-<!--### Carthage
+### Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
 
@@ -52,7 +58,7 @@ To integrate TBUIAutoTest into your Xcode project using Carthage, specify it in 
 github "yulingtianxia/TBUIAutoTest"
 ```
 
-Run `carthage update` to build the framework and drag the built `TBUIAutoTestKit.framework` into your Xcode project.-->
+Run `carthage update` to build the framework and drag the built `TBUIAutoTest.framework` into your Xcode project.
 
 ### Manual
 
