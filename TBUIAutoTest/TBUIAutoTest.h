@@ -15,3 +15,9 @@ static NSString * const kAutoTestUIKey = @"isAutoTestUI";
 + (instancetype)sharedInstance;
 
 @end
+
+@interface NSObject (TBUIAutoTest)
+
++ (void)swizzleSelector:(SEL)originalSelector withAnotherSelector:(SEL)swizzledSelector;
+
+@end
