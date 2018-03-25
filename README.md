@@ -5,6 +5,9 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/TBUIAutoTest.svg?style=flat)](http://cocoapods.org/pods/TBUIAutoTest)
 [![Platform](https://img.shields.io/cocoapods/p/TBUIAutoTest.svg?style=flat)](http://cocoapods.org/pods/TBUIAutoTest)
+[![CocoaPods](https://img.shields.io/cocoapods/dt/TBUIAutoTest.svg)](http://cocoapods.org/pods/TBUIAutoTest)
+[![CocoaPods](https://img.shields.io/cocoapods/at/TBUIAutoTest.svg)](http://cocoapods.org/pods/TBUIAutoTest)
+[![Twitter Follow](https://img.shields.io/twitter/follow/yulingtianxia.svg?style=social&label=Follow)](https://twitter.com/yulingtianxia)
 
 Generating UI test label automatically.
 
@@ -78,3 +81,4 @@ Turn off showing infomation when long press view in `+load` method:
 ```
 [TBUIAutoTest sharedInstance].longPressEnabled = NO;
 ```
+
