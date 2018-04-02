@@ -8,6 +8,7 @@
 
 #import "UIImage+TBUIAutoTest.h"
 #import "TBUIAutoTest.h"
+#import <objc/runtime.h>
 
 @implementation UIImage (TBUIAutoTest)
 + (void)load
@@ -28,8 +29,9 @@
     {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            [self swizzleSelector:@selector(imageNamed:) withAnotherSelector:@selector(tb_imageNamed:)];
-            [self swizzleSelector:@selector(imageWithContentsOfFile:) withAnotherSelector:@selector(tb_imageWithContentsOfFile:)];
+            [object_getClass(self) swizzleSelector:@selector(imageNamed:) withAnotherSelector:@selector(tb_imageNamed:)];
+            [object_getClass(self) swizzleSelector:@selector(imageWithContentsOfFile:) withAnotherSelector:@selector(tb_imageWithContentsOfFile:)];
+            [self swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
         });
     }
     
@@ -55,6 +57,18 @@
         image.accessibilityIdentifier = path;
     }
     return image;
+}
+
+- (id)assetName {return nil;}
+
+- (NSString *)tb_accessibilityIdentifier {
+    NSString *tb_accessibilityIdentifier = [self tb_accessibilityIdentifier];
+    if (tb_accessibilityIdentifier.length == 0 && [self respondsToSelector:@selector(imageAsset)]) {
+        tb_accessibilityIdentifier = [(id)self.imageAsset assetName];
+        self.accessibilityIdentifier = tb_accessibilityIdentifier;
+    }
+    
+    return tb_accessibilityIdentifier;
 }
 
 @end
