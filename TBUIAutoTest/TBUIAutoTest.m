@@ -44,19 +44,17 @@
 
 + (void)swizzleSelector:(SEL)originalSelector withAnotherSelector:(SEL)swizzledSelector
 {
-    Class aClass = [self class];
-    
-    Method originalMethod = class_getInstanceMethod(aClass, originalSelector);
-    Method swizzledMethod = class_getInstanceMethod(aClass, swizzledSelector);
+    Method originalMethod = class_getInstanceMethod(self, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(self, swizzledSelector);
     
     BOOL didAddMethod =
-    class_addMethod(aClass,
+    class_addMethod(self,
                     originalSelector,
                     method_getImplementation(swizzledMethod),
                     method_getTypeEncoding(swizzledMethod));
     
     if (didAddMethod) {
-        class_replaceMethod(aClass,
+        class_replaceMethod(self,
                             swizzledSelector,
                             method_getImplementation(originalMethod),
                             method_getTypeEncoding(originalMethod));
