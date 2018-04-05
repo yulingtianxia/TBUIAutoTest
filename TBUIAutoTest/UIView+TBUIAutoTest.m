@@ -9,6 +9,7 @@
 #import "UIView+TBUIAutoTest.h"
 #import "UIResponder+TBUIAutoTest.h"
 #import "TBUIAutoTest.h"
+#import <objc/runtime.h>
 
 #define kiOS8Later SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")
 
@@ -126,9 +127,13 @@
         return;
     }
     [self tb_addSubview:view];
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:view action:@selector(longPress:)];
-    longPress.delegate = [TBUIAutoTest sharedInstance];
-    [view addGestureRecognizer:longPress];
+    UILongPressGestureRecognizer *longPress = objc_getAssociatedObject(view, _cmd);
+    if (!longPress) {
+        longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:view action:@selector(longPress:)];
+        longPress.delegate = [TBUIAutoTest sharedInstance];
+        [view addGestureRecognizer:longPress];
+        objc_setAssociatedObject(view, _cmd, longPress, OBJC_ASSOCIATION_RETAIN);
+    }
 }
 
 - (UIViewController*)viewController {
