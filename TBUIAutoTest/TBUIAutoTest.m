@@ -9,6 +9,8 @@
 #import "TBUIAutoTest.h"
 #import <objc/runtime.h>
 
+NSString * const kAutoTestUIKey = @"isAutoTestUI";
+
 @implementation TBUIAutoTest
 
 + (instancetype)sharedInstance

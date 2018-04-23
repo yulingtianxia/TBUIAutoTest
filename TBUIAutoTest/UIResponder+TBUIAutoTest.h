@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIResponder (TBUIAutoTest)
+
 - (NSString *)findNameWithInstance:(UIView *) instance;
+
 @end

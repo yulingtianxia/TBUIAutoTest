@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-static NSString * const kAutoTestUIKey = @"isAutoTestUI";
+
+extern NSString * const kAutoTestUIKey;
 
 @interface TBUIAutoTest : NSObject <UIGestureRecognizerDelegate>
 

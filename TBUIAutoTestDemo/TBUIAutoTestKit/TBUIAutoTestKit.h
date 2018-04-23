@@ -15,5 +15,5 @@ FOUNDATION_EXPORT double TBUIAutoTestKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char TBUIAutoTestKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <TBUIAutoTestKit/PublicHeader.h>
-
+#import <TBUIAutoTestKit/TBUIAutoTest.h>
 
