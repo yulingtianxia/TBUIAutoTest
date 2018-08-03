@@ -1,6 +1,6 @@
 //
 //  UIResponder+TBUIAutoTest.m
-//  TagViewTest
+//  TBUIAutoTestDemo
 //
 //  Created by 杨萧玉 on 16/3/3.
 //  Copyright © 2016年 杨萧玉. All rights reserved.
@@ -31,7 +31,7 @@
     return key;
 }
 
-- (NSString *)findNameWithInstance:(UIView *) instance
+- (NSString *)findNameWithInstance:(UIView *)instance
 {
     id nextResponder = [self nextResponder];
     NSString *name = [self nameWithInstance:instance];
