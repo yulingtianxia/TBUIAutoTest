@@ -11,7 +11,7 @@
 
 @implementation UIResponder (TBUIAutoTest)
 
--(NSString *)nameWithInstance:(id)instance {
+- (NSString *)nameWithInstance:(id)instance {
     unsigned int numIvars = 0;
     NSString *key=nil;
     Ivar * ivars = class_copyIvarList([self class], &numIvars);

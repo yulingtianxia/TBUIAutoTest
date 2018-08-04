@@ -13,18 +13,7 @@
 @implementation UIImage (TBUIAutoTest)
 + (void)load
 {
-    
-#if DEBUG
-    BOOL isAutoTestUI = NO;
-    
-#if (TARGET_IPHONE_SIMULATOR)
-    // 为保证不影响其它开发，在模拟器情况下只能自己手动打开这个自动化选项
-    isAutoTestUI = [[[NSUserDefaults standardUserDefaults] objectForKey:kAutoTestUIKey] boolValue];
-#else
-    // 在自动化测试时无法通过脚本来打开这个选项，所以只能在真机下的debug版默认打开
-    isAutoTestUI = YES;
-#endif
-    
+    BOOL isAutoTestUI = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUIKey];
     if (isAutoTestUI)
     {
         static dispatch_once_t onceToken;
@@ -34,8 +23,6 @@
             [self swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
         });
     }
-    
-#endif
 }
 
 #pragma mark - Method Swizzling

@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 
 NSString * const kAutoTestUIKey = @"isAutoTestUI";
+NSString * const kAutoTestUILongPressKey = @"kAutoTestUILongPressKey";
 
 @implementation TBUIAutoTest
 
@@ -19,6 +20,7 @@ NSString * const kAutoTestUIKey = @"isAutoTestUI";
     static TBUIAutoTest *_instance;
     dispatch_once(&onceToken, ^{
         _instance = [TBUIAutoTest new];
+        _instance.longPressEnabled = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUILongPressKey];
     });
     return _instance;
 }

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 extern NSString * const kAutoTestUIKey;
+extern NSString * const kAutoTestUILongPressKey;
 
 @interface TBUIAutoTest : NSObject <UIGestureRecognizerDelegate>
 
