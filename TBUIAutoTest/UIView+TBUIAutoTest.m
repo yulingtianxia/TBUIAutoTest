@@ -104,7 +104,22 @@
         }
     }
     if ([self isKindOfClass:[UITableViewCell class]]) {//UITableViewCell 特殊处理
-        self.accessibilityIdentifier = [NSString stringWithFormat:@"(%@)",((UITableViewCell *)self).reuseIdentifier];
+        UIView *view = [self superview];
+        while (view && [view isKindOfClass:[UITableView class]] == NO) {
+            view = [view superview];
+        }
+        UITableView *tableView = (UITableView *)view;
+        NSIndexPath *indexPath = [tableView indexPathForCell:(UITableViewCell *)self];
+        self.accessibilityIdentifier = [NSString stringWithFormat:@"(%@-%ld.%ld)", ((UITableViewCell *)self).reuseIdentifier, (long)indexPath.section, (long)indexPath.row];
+    }
+    if ([self isKindOfClass:[UICollectionViewCell class]]) {//UICollectionViewCell 特殊处理
+        UIView *view = [self superview];
+        while (view && [view isKindOfClass:[UICollectionView class]] == NO) {
+            view = [view superview];
+        }
+        UICollectionView *collectionView = (UICollectionView *)view;
+        NSIndexPath *indexPath = [collectionView indexPathForCell:(UICollectionViewCell *)self];
+        self.accessibilityIdentifier = [NSString stringWithFormat:@"(%@-%ld.%ld)", ((UICollectionViewCell *)self).reuseIdentifier, (long)indexPath.section, (long)indexPath.row];
     }
     return [self tb_accessibilityLabel];
 }
