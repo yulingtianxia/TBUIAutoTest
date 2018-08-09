@@ -72,13 +72,14 @@ Just drag the "TBUIAutoTest" document folder into your project.
 Turn on TBUIAutoTest in `+load` method:
 
 ```
-[[NSUserDefaults standardUserDefaults] registerDefaults:@{kAutoTestUIKey: @(YES)}];
-[[NSUserDefaults standardUserDefaults] synchronize];
+extern NSString * const kAutoTestUITurnOnKey;
+[NSUserDefaults.standardUserDefaults setBool:YES forKey:kAutoTestUITurnOnKey];
 ```
 
-Turn off showing infomation when long press view in `+load` method:
+Turn on showing infomation when long press view in `+load` method:
 
 ```
-[TBUIAutoTest sharedInstance].longPressEnabled = NO;
+extern NSString * const kAutoTestUILongPressKey;
+[NSUserDefaults.standardUserDefaults setBool:YES forKey:kAutoTestUILongPressKey];
 ```
 
