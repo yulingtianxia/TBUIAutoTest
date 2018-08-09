@@ -18,14 +18,14 @@
 @implementation UIView (TBUIAutoTest)
 + (void)load
 {
-    BOOL isAutoTestUI = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUIKey];
+    BOOL isAutoTestUI = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUITurnOnKey];
     if (isAutoTestUI)
     {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
             [self swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
             [self swizzleSelector:@selector(accessibilityLabel) withAnotherSelector:@selector(tb_accessibilityLabel)];
-            if ([TBUIAutoTest sharedInstance].isLongPressEnabled) {
+            if ([NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUILongPressKey]) {
                 [self swizzleSelector:@selector(addSubview:) withAnotherSelector:@selector(tb_addSubview:)];
             }
         });

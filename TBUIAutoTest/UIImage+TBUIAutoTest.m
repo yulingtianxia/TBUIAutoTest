@@ -13,7 +13,7 @@
 @implementation UIImage (TBUIAutoTest)
 + (void)load
 {
-    BOOL isAutoTestUI = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUIKey];
+    BOOL isAutoTestUI = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUITurnOnKey];
     if (isAutoTestUI)
     {
         static dispatch_once_t onceToken;

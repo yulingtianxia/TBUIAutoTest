@@ -9,7 +9,7 @@
 #import "TBUIAutoTest.h"
 #import <objc/runtime.h>
 
-NSString * const kAutoTestUIKey = @"isAutoTestUI";
+NSString * const kAutoTestUITurnOnKey = @"kAutoTestUITurnOnKey";
 NSString * const kAutoTestUILongPressKey = @"kAutoTestUILongPressKey";
 
 @implementation TBUIAutoTest
@@ -20,14 +20,12 @@ NSString * const kAutoTestUILongPressKey = @"kAutoTestUILongPressKey";
     static TBUIAutoTest *_instance;
     dispatch_once(&onceToken, ^{
         _instance = [TBUIAutoTest new];
-        _instance.longPressEnabled = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUILongPressKey];
     });
     return _instance;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-    
     return YES;
 }
 

@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString * const kAutoTestUIKey;
-extern NSString * const kAutoTestUILongPressKey;
+extern NSString * const kAutoTestUITurnOnKey; // 是否生成 UI 标签
+extern NSString * const kAutoTestUILongPressKey; // 是否开启长按弹窗显示 UI 标签
 
 @interface TBUIAutoTest : NSObject <UIGestureRecognizerDelegate>
 
-@property (nonatomic, getter=isLongPressEnabled) BOOL longPressEnabled;
 + (instancetype)sharedInstance;
 
 @end

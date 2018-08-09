@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "TBUIAutoTest.h"
 
 @interface ViewController ()
 
@@ -17,9 +16,10 @@
 
 + (void)load
 {
-    [[NSUserDefaults standardUserDefaults] registerDefaults:@{kAutoTestUIKey: @(YES)}];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [TBUIAutoTest sharedInstance].longPressEnabled = YES;
+    extern NSString * const kAutoTestUITurnOnKey;
+    extern NSString * const kAutoTestUILongPressKey;
+    [NSUserDefaults.standardUserDefaults setBool:YES forKey:kAutoTestUITurnOnKey];
+    [NSUserDefaults.standardUserDefaults setBool:YES forKey:kAutoTestUILongPressKey];
 }
 
 - (void)viewDidLoad {
