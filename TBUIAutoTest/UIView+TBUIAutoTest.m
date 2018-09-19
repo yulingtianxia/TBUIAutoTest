@@ -23,10 +23,11 @@
     {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
-            [self swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
-            [self swizzleSelector:@selector(accessibilityLabel) withAnotherSelector:@selector(tb_accessibilityLabel)];
+            Class viewClass = NSClassFromString(@"UIView");
+            [viewClass swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
+            [viewClass swizzleSelector:@selector(accessibilityLabel) withAnotherSelector:@selector(tb_accessibilityLabel)];
             if ([NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUILongPressKey]) {
-                [self swizzleSelector:@selector(addSubview:) withAnotherSelector:@selector(tb_addSubview:)];
+                [viewClass swizzleSelector:@selector(addSubview:) withAnotherSelector:@selector(tb_addSubview:)];
             }
         });
     }
