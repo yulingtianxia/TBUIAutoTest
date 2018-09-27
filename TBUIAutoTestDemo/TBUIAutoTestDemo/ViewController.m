@@ -10,6 +10,8 @@
 
 @interface ViewController ()
 
+@property (nonatomic, strong) UILabel *testLabel;
+
 @end
 
 @implementation ViewController
@@ -26,13 +28,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    UILabel *testLabel = [[UILabel alloc] init];
-    testLabel.textColor = [UIColor blackColor];
-    testLabel.text = @"测试";
-    [testLabel sizeToFit];
-    testLabel.center = (CGPoint){self.view.bounds.size.width/2, self.view.bounds.size.height/2};
-    [self.view addSubview:testLabel];
-    testLabel.userInteractionEnabled = YES;
+    self.testLabel = [[UILabel alloc] init];
+    self.testLabel.textColor = [UIColor blackColor];
+    self.testLabel.text = @"测试";
+    [self.testLabel sizeToFit];
+    self.testLabel.center = (CGPoint){self.view.bounds.size.width/2, self.view.bounds.size.height/2};
+    [self.view addSubview:self.testLabel];
+    self.testLabel.userInteractionEnabled = YES;
 }
 
 
