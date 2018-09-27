@@ -126,7 +126,8 @@
     return [self tb_accessibilityLabel];
 }
 
-- (void)tb_addSubview:(UIView *)view {
+- (void)tb_addSubview:(UIView *)view
+{
     if (!view) {
         return;
     }
@@ -140,9 +141,10 @@
     }
 }
 
-- (UIViewController*)viewController {
+- (UIViewController*)viewController
+{
     for (UIView* next = self; next; next = next.superview) {
-        UIResponder* nextResponder = [next nextResponder];
+        UIResponder *nextResponder = [next nextResponder];
         if ([nextResponder isKindOfClass:[UIViewController class]]) {
             return (UIViewController*)nextResponder;
         }

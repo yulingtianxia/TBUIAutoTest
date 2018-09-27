@@ -29,7 +29,8 @@
 
 #pragma mark - Method Swizzling
 
-+ (UIImage *)tb_imageNamed:(NSString *)imageName{
++ (UIImage *)tb_imageNamed:(NSString *)imageName
+{
     UIImage *image = [UIImage tb_imageNamed:imageName];
     image.accessibilityIdentifier = imageName;
     return image;
@@ -48,7 +49,8 @@
     return image;
 }
 
-- (NSString *)tb_accessibilityIdentifier {
+- (NSString *)tb_accessibilityIdentifier
+{
     NSString *tb_accessibilityIdentifier = [self tb_accessibilityIdentifier];
     return tb_accessibilityIdentifier;
 }

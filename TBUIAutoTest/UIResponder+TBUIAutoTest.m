@@ -11,10 +11,11 @@
 
 @implementation UIResponder (TBUIAutoTest)
 
-- (NSString *)nameWithInstance:(id)instance {
+- (NSString *)nameWithInstance:(id)instance
+{
     unsigned int numIvars = 0;
-    NSString *key=nil;
-    Ivar * ivars = class_copyIvarList([self class], &numIvars);
+    NSString *key = nil;
+    Ivar *ivars = class_copyIvarList([self class], &numIvars);
     for(int i = 0; i < numIvars; i++) {
         Ivar thisIvar = ivars[i];
         void *val = ((void *(*)(id, Ivar))object_getIvar)(self, thisIvar);
