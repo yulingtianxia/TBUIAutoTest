@@ -16,6 +16,7 @@
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @implementation UIView (TBUIAutoTest)
+
 + (void)load
 {
     BOOL isAutoTestUI = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUITurnOnKey];
@@ -148,4 +149,5 @@
     }
     return nil;
 }
+
 @end

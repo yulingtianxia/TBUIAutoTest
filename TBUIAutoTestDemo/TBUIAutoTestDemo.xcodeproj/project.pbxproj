@@ -15,14 +15,14 @@
 		A477FDDA1DD07657000F8482 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A477FDD81DD07657000F8482 /* LaunchScreen.storyboard */; };
 		A477FDEA1DD076B7000F8482 /* TBUIAutoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A477FDE31DD076B7000F8482 /* TBUIAutoTest.m */; };
 		A477FDEB1DD076B7000F8482 /* UIImage+TBUIAutoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A477FDE51DD076B7000F8482 /* UIImage+TBUIAutoTest.m */; };
-		A477FDEC1DD076B7000F8482 /* UIResponder+TBUIAutoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A477FDE71DD076B7000F8482 /* UIResponder+TBUIAutoTest.m */; };
+		A477FDEC1DD076B7000F8482 /* UIResponder+TBUIAutoTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A477FDE71DD076B7000F8482 /* UIResponder+TBUIAutoTest.mm */; };
 		A477FDED1DD076B7000F8482 /* UIView+TBUIAutoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A477FDE91DD076B7000F8482 /* UIView+TBUIAutoTest.m */; };
 		A4FA50591E751F4F0086DF0F /* TBUIAutoTestKit.h in Headers */ = {isa = PBXBuildFile; fileRef = A4FA50571E751F4F0086DF0F /* TBUIAutoTestKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A4FA505C1E751F4F0086DF0F /* TBUIAutoTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4FA50551E751F4F0086DF0F /* TBUIAutoTest.framework */; };
 		A4FA505D1E751F4F0086DF0F /* TBUIAutoTest.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A4FA50551E751F4F0086DF0F /* TBUIAutoTest.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A4FA50621E751F8D0086DF0F /* TBUIAutoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A477FDE31DD076B7000F8482 /* TBUIAutoTest.m */; };
 		A4FA50631E751F910086DF0F /* UIImage+TBUIAutoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A477FDE51DD076B7000F8482 /* UIImage+TBUIAutoTest.m */; };
-		A4FA50641E751F940086DF0F /* UIResponder+TBUIAutoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A477FDE71DD076B7000F8482 /* UIResponder+TBUIAutoTest.m */; };
+		A4FA50641E751F940086DF0F /* UIResponder+TBUIAutoTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = A477FDE71DD076B7000F8482 /* UIResponder+TBUIAutoTest.mm */; };
 		A4FA50651E751F970086DF0F /* UIView+TBUIAutoTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A477FDE91DD076B7000F8482 /* UIView+TBUIAutoTest.m */; };
 		A4FA50661E751FE30086DF0F /* TBUIAutoTest.h in Headers */ = {isa = PBXBuildFile; fileRef = A477FDE21DD076B7000F8482 /* TBUIAutoTest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -67,7 +67,7 @@
 		A477FDE41DD076B7000F8482 /* UIImage+TBUIAutoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TBUIAutoTest.h"; sourceTree = "<group>"; };
 		A477FDE51DD076B7000F8482 /* UIImage+TBUIAutoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TBUIAutoTest.m"; sourceTree = "<group>"; };
 		A477FDE61DD076B7000F8482 /* UIResponder+TBUIAutoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+TBUIAutoTest.h"; sourceTree = "<group>"; };
-		A477FDE71DD076B7000F8482 /* UIResponder+TBUIAutoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+TBUIAutoTest.m"; sourceTree = "<group>"; };
+		A477FDE71DD076B7000F8482 /* UIResponder+TBUIAutoTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIResponder+TBUIAutoTest.mm"; sourceTree = "<group>"; };
 		A477FDE81DD076B7000F8482 /* UIView+TBUIAutoTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+TBUIAutoTest.h"; sourceTree = "<group>"; };
 		A477FDE91DD076B7000F8482 /* UIView+TBUIAutoTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+TBUIAutoTest.m"; sourceTree = "<group>"; };
 		A4FA50551E751F4F0086DF0F /* TBUIAutoTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TBUIAutoTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,7 +145,7 @@
 				A477FDE41DD076B7000F8482 /* UIImage+TBUIAutoTest.h */,
 				A477FDE51DD076B7000F8482 /* UIImage+TBUIAutoTest.m */,
 				A477FDE61DD076B7000F8482 /* UIResponder+TBUIAutoTest.h */,
-				A477FDE71DD076B7000F8482 /* UIResponder+TBUIAutoTest.m */,
+				A477FDE71DD076B7000F8482 /* UIResponder+TBUIAutoTest.mm */,
 				A477FDE81DD076B7000F8482 /* UIView+TBUIAutoTest.h */,
 				A477FDE91DD076B7000F8482 /* UIView+TBUIAutoTest.m */,
 			);
@@ -285,7 +285,7 @@
 				A477FDEA1DD076B7000F8482 /* TBUIAutoTest.m in Sources */,
 				A477FDEB1DD076B7000F8482 /* UIImage+TBUIAutoTest.m in Sources */,
 				A477FDCC1DD07657000F8482 /* main.m in Sources */,
-				A477FDEC1DD076B7000F8482 /* UIResponder+TBUIAutoTest.m in Sources */,
+				A477FDEC1DD076B7000F8482 /* UIResponder+TBUIAutoTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +296,7 @@
 				A4FA50631E751F910086DF0F /* UIImage+TBUIAutoTest.m in Sources */,
 				A4FA50651E751F970086DF0F /* UIView+TBUIAutoTest.m in Sources */,
 				A4FA50621E751F8D0086DF0F /* TBUIAutoTest.m in Sources */,
-				A4FA50641E751F940086DF0F /* UIResponder+TBUIAutoTest.m in Sources */,
+				A4FA50641E751F940086DF0F /* UIResponder+TBUIAutoTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

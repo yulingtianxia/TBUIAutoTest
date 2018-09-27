@@ -11,6 +11,7 @@
 #import <objc/runtime.h>
 
 @implementation UIImage (TBUIAutoTest)
+
 + (void)load
 {
     BOOL isAutoTestUI = [NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUITurnOnKey];
@@ -47,15 +48,8 @@
     return image;
 }
 
-- (id)assetName {return nil;}
-
 - (NSString *)tb_accessibilityIdentifier {
     NSString *tb_accessibilityIdentifier = [self tb_accessibilityIdentifier];
-    if (tb_accessibilityIdentifier.length == 0 && [self respondsToSelector:@selector(imageAsset)]) {
-        tb_accessibilityIdentifier = [(id)self.imageAsset assetName];
-        self.accessibilityIdentifier = tb_accessibilityIdentifier;
-    }
-    
     return tb_accessibilityIdentifier;
 }
 
