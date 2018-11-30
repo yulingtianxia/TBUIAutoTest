@@ -58,7 +58,13 @@
 - (NSString *)tb_accessibilityIdentifier
 {
     NSString *accessibilityIdentifier = [self tb_accessibilityIdentifier];
-    if (accessibilityIdentifier.length > 0 && [[accessibilityIdentifier substringToIndex:1] isEqualToString:@"("]) {
+    if (accessibilityIdentifier.length > 0) {
+        if ([accessibilityIdentifier hasPrefix:@"("]) {
+            NSString *reuseLabel = [self labelForReuseView];
+            if (reuseLabel.length > 0) {
+                return reuseLabel;
+            }
+        }
         return accessibilityIdentifier;
     }
     else if ([accessibilityIdentifier isEqualToString:@"null"]) {
@@ -96,6 +102,10 @@
 
 - (NSString *)tb_accessibilityLabel
 {
+    NSString *accessibilityIdentifier = [self tb_accessibilityIdentifier];
+    if (accessibilityIdentifier.length > 0 && ![accessibilityIdentifier hasPrefix:@"("]) {
+        return [self tb_accessibilityLabel];
+    }
     if ([self isKindOfClass:[UIImageView class]]) {//UIImageView 特殊处理
         NSString *name = [self.superview findNameWithInstance:self];
         if (name) {
@@ -105,6 +115,15 @@
             self.accessibilityIdentifier = [NSString stringWithFormat:@"(%@)",((UIImageView *)self).image.accessibilityIdentifier?:[NSString stringWithFormat:@"image%ld",(long)((UIImageView *)self).tag]];
         }
     }
+    NSString *label = [self labelForReuseView];
+    if (label.length > 0) {
+        self.accessibilityIdentifier = label;
+    }
+    return [self tb_accessibilityLabel];
+}
+
+- (NSString *)labelForReuseView
+{
     if ([self isKindOfClass:[UITableViewCell class]]) {//UITableViewCell 特殊处理
         UIView *view = [self superview];
         while (view && [view isKindOfClass:[UITableView class]] == NO) {
@@ -112,7 +131,7 @@
         }
         UITableView *tableView = (UITableView *)view;
         NSIndexPath *indexPath = [tableView indexPathForCell:(UITableViewCell *)self];
-        self.accessibilityIdentifier = [NSString stringWithFormat:@"(%@-%ld.%ld)", ((UITableViewCell *)self).reuseIdentifier, (long)indexPath.section, (long)indexPath.row];
+        return [NSString stringWithFormat:@"(%@-%ld.%ld)", ((UITableViewCell *)self).reuseIdentifier, (long)indexPath.section, (long)indexPath.row];
     }
     if ([self isKindOfClass:[UICollectionViewCell class]]) {//UICollectionViewCell 特殊处理
         UIView *view = [self superview];
@@ -121,9 +140,9 @@
         }
         UICollectionView *collectionView = (UICollectionView *)view;
         NSIndexPath *indexPath = [collectionView indexPathForCell:(UICollectionViewCell *)self];
-        self.accessibilityIdentifier = [NSString stringWithFormat:@"(%@-%ld.%ld)", ((UICollectionViewCell *)self).reuseIdentifier, (long)indexPath.section, (long)indexPath.row];
+        return [NSString stringWithFormat:@"(%@-%ld.%ld)", ((UICollectionViewCell *)self).reuseIdentifier, (long)indexPath.section, (long)indexPath.row];
     }
-    return [self tb_accessibilityLabel];
+    return @"";
 }
 
 - (void)tb_addSubview:(UIView *)view
