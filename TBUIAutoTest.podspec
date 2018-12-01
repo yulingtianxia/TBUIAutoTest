@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name         = "TBUIAutoTest"
-s.version      = "1.1.8"
+s.version      = "1.2.0"
 s.summary      = "Generating accessibilityIdentifier for UIAutomation."
 s.description  = <<-DESC
 TBUIAutoTest generates UIAutomation `accessibilityIdentifier` for you.

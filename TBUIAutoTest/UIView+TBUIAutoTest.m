@@ -26,7 +26,6 @@
         dispatch_once(&onceToken, ^{
             Class viewClass = NSClassFromString(@"UIView");
             [viewClass swizzleSelector:@selector(accessibilityIdentifier) withAnotherSelector:@selector(tb_accessibilityIdentifier)];
-            [viewClass swizzleSelector:@selector(accessibilityLabel) withAnotherSelector:@selector(tb_accessibilityLabel)];
             if ([NSUserDefaults.standardUserDefaults boolForKey:kAutoTestUILongPressKey]) {
                 [viewClass swizzleSelector:@selector(addSubview:) withAnotherSelector:@selector(tb_addSubview:)];
             }
@@ -53,73 +52,50 @@
     }
 }
 
-#pragma mark - Method Swizzling
+#pragma mark - Generate Label
 
-- (NSString *)tb_accessibilityIdentifier
+- (NSString *)labelForOriginalLabel:(NSString *)originalLabel
 {
-    NSString *accessibilityIdentifier = [self tb_accessibilityIdentifier];
-    if (accessibilityIdentifier.length > 0) {
-        if ([accessibilityIdentifier hasPrefix:@"("]) {
+    if (originalLabel.length > 0) {
+        if ([originalLabel hasPrefix:@"TBUIAutoTest_"]) {
             NSString *reuseLabel = [self labelForReuseView];
             if (reuseLabel.length > 0) {
                 return reuseLabel;
             }
         }
-        return accessibilityIdentifier;
+        return originalLabel;
     }
-    else if ([accessibilityIdentifier isEqualToString:@"null"]) {
-        accessibilityIdentifier = @"";
+    else if ([originalLabel isEqualToString:@"null"]) {
+        originalLabel = @"";
     }
     
     NSString *labelStr = [self.superview findNameWithInstance:self];
     
     if (labelStr && ![labelStr isEqualToString:@""]) {
-        labelStr = [NSString stringWithFormat:@"(%@)",labelStr];
+        labelStr = [NSString stringWithFormat:@"TBUIAutoTest_Property_%@", labelStr];
     }
     else {
         if ([self isKindOfClass:[UILabel class]]) {//UILabel 使用 text
-            labelStr = [NSString stringWithFormat:@"(%@)",((UILabel *)self).text?:@""];
+            labelStr = [NSString stringWithFormat:@"TBUIAutoTest_Label_%@", ((UILabel *)self).text ?: @""];
         }
         else if ([self isKindOfClass:[UIImageView class]]) {//UIImageView 使用 image 的 imageName
-            labelStr = [NSString stringWithFormat:@"(%@)",((UIImageView *)self).image.accessibilityIdentifier?:[NSString stringWithFormat:@"image%ld",(long)((UIImageView *)self).tag]];
+            labelStr = [NSString stringWithFormat:@"TBUIAutoTest_ImageView_%@", ((UIImageView *)self).image.accessibilityIdentifier ?: [NSString stringWithFormat:@"image%ld", (long)((UIImageView *)self).tag]];
         }
         else if ([self isKindOfClass:[UIButton class]]) {//UIButton 使用 button 的 text 和 image
-            labelStr = [NSString stringWithFormat:@"(%@%@)",((UIButton *)self).titleLabel.text?:@"",((UIButton *)self).imageView.image.accessibilityIdentifier?:@""];
+            labelStr = [NSString stringWithFormat:@"TBUIAutoTest_Button_%@_%@",((UIButton *)self).titleLabel.text ?: @"", ((UIButton *)self).imageView.image.accessibilityIdentifier ?: @""];
         }
-        else if (accessibilityIdentifier) {// 已有 label，则在此基础上再次添加更多信息
-            labelStr = [NSString stringWithFormat:@"(%@)",accessibilityIdentifier];
+        NSString *label = [self labelForReuseView];
+        if (label.length > 0) {
+            labelStr = label;
         }
         if ([self isKindOfClass:[UIButton class]]) {
-            self.accessibilityValue = [NSString stringWithFormat:@"(%@)",((UIButton *)self).currentBackgroundImage.accessibilityIdentifier?:@""];
+            self.accessibilityValue = [NSString stringWithFormat:@"TBUIAutoTest_Button_%@", ((UIButton *)self).currentBackgroundImage.accessibilityIdentifier ?: @""];
         }
     }
-    if ([labelStr isEqualToString:@"()"] || [labelStr isEqualToString:@"(null)"] || [labelStr isEqualToString:@"null"]) {
+    if ([labelStr isEqualToString:@"TBUIAutoTest_"] || [labelStr isEqualToString:@"TBUIAutoTest_null"] || [labelStr isEqualToString:@"null"]) {
         labelStr = @"";
     }
-    [self setAccessibilityIdentifier:labelStr];
     return labelStr;
-}
-
-- (NSString *)tb_accessibilityLabel
-{
-    NSString *accessibilityIdentifier = [self tb_accessibilityIdentifier];
-    if (accessibilityIdentifier.length > 0 && ![accessibilityIdentifier hasPrefix:@"("]) {
-        return [self tb_accessibilityLabel];
-    }
-    if ([self isKindOfClass:[UIImageView class]]) {//UIImageView 特殊处理
-        NSString *name = [self.superview findNameWithInstance:self];
-        if (name) {
-            self.accessibilityIdentifier = [NSString stringWithFormat:@"(%@)",name];
-        }
-        else {
-            self.accessibilityIdentifier = [NSString stringWithFormat:@"(%@)",((UIImageView *)self).image.accessibilityIdentifier?:[NSString stringWithFormat:@"image%ld",(long)((UIImageView *)self).tag]];
-        }
-    }
-    NSString *label = [self labelForReuseView];
-    if (label.length > 0) {
-        self.accessibilityIdentifier = label;
-    }
-    return [self tb_accessibilityLabel];
 }
 
 - (NSString *)labelForReuseView
@@ -131,7 +107,7 @@
         }
         UITableView *tableView = (UITableView *)view;
         NSIndexPath *indexPath = [tableView indexPathForCell:(UITableViewCell *)self];
-        return [NSString stringWithFormat:@"(%@-%ld.%ld)", ((UITableViewCell *)self).reuseIdentifier, (long)indexPath.section, (long)indexPath.row];
+        return [NSString stringWithFormat:@"TBUIAutoTest_TableCell_%@_%ld_%ld", ((UITableViewCell *)self).reuseIdentifier, (long)indexPath.section, (long)indexPath.row];
     }
     if ([self isKindOfClass:[UICollectionViewCell class]]) {//UICollectionViewCell 特殊处理
         UIView *view = [self superview];
@@ -140,24 +116,9 @@
         }
         UICollectionView *collectionView = (UICollectionView *)view;
         NSIndexPath *indexPath = [collectionView indexPathForCell:(UICollectionViewCell *)self];
-        return [NSString stringWithFormat:@"(%@-%ld.%ld)", ((UICollectionViewCell *)self).reuseIdentifier, (long)indexPath.section, (long)indexPath.row];
+        return [NSString stringWithFormat:@"TBUIAutoTest_CollectionCell_%@_%ld_%ld", ((UICollectionViewCell *)self).reuseIdentifier, (long)indexPath.section, (long)indexPath.row];
     }
     return @"";
-}
-
-- (void)tb_addSubview:(UIView *)view
-{
-    if (!view) {
-        return;
-    }
-    [self tb_addSubview:view];
-    UILongPressGestureRecognizer *longPress = objc_getAssociatedObject(view, _cmd);
-    if (!longPress) {
-        longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:view action:@selector(longPress:)];
-        longPress.delegate = [TBUIAutoTest sharedInstance];
-        [view addGestureRecognizer:longPress];
-        objc_setAssociatedObject(view, _cmd, longPress, OBJC_ASSOCIATION_RETAIN);
-    }
 }
 
 - (UIViewController*)viewController
@@ -169,6 +130,31 @@
         }
     }
     return nil;
+}
+
+#pragma mark - Method Swizzling
+
+- (NSString *)tb_accessibilityIdentifier
+{
+    NSString *accessibilityIdentifier = [self tb_accessibilityIdentifier];
+    NSString *labelStr = [self labelForOriginalLabel:accessibilityIdentifier];
+    [self setAccessibilityIdentifier:labelStr];
+    return labelStr;
+}
+
+- (void)tb_addSubview:(UIView *)view
+{
+    [self tb_addSubview:view];
+    if (!view.isAccessibilityElement) {
+        return;
+    }
+    UILongPressGestureRecognizer *longPress = objc_getAssociatedObject(view, _cmd);
+    if (!longPress) {
+        longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:view action:@selector(longPress:)];
+        longPress.delegate = [TBUIAutoTest sharedInstance];
+        [view addGestureRecognizer:longPress];
+        objc_setAssociatedObject(view, _cmd, longPress, OBJC_ASSOCIATION_RETAIN);
+    }
 }
 
 @end
