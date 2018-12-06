@@ -69,6 +69,10 @@
         originalLabel = @"";
     }
     
+    if ([self isKindOfClass:UINavigationBar.class]) {
+        return ((UINavigationBar *)self).topItem.title;
+    }
+    
     NSString *labelStr = [self.superview findNameWithInstance:self];
     
     if (labelStr && ![labelStr isEqualToString:@""]) {
