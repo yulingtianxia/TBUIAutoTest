@@ -32,7 +32,8 @@
     self.testLabel.textColor = [UIColor blackColor];
     self.testLabel.text = @"测试";
     [self.testLabel sizeToFit];
-    self.testLabel.center = (CGPoint){self.view.bounds.size.width/2, self.view.bounds.size.height/2};
+    self.testLabel.center = (CGPoint){self.view.bounds.size.width / 2, self.view.bounds.size.height / 2};
+    self.testLabel.isAccessibilityElement = YES;
     [self.view addSubview:self.testLabel];
     self.testLabel.userInteractionEnabled = YES;
 }
