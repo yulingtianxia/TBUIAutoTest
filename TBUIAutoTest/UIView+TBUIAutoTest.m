@@ -62,11 +62,10 @@
             if (reuseLabel.length > 0) {
                 return reuseLabel;
             }
+        } else if ([originalLabel isEqualToString:@"null"]) {
+            originalLabel = @"";
         }
         return originalLabel;
-    }
-    else if ([originalLabel isEqualToString:@"null"]) {
-        originalLabel = @"";
     }
     
     if ([self isKindOfClass:UINavigationBar.class]) {
