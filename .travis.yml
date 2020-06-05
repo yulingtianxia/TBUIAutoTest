@@ -1,8 +1,9 @@
-osx_image: xcode10.1
+osx_image: xcode11.5
+os: osx
 language: objective-c
 xcode_project: TBUIAutoTestDemo
 xcode_scheme: TBUIAutoTestKit
-xcode_sdk: iphoneos12.1
+xcode_sdk: iphoneos13.5
 env:
   global:
   - FRAMEWORK_NAME=TBUIAutoTest
@@ -17,10 +18,10 @@ script: xcodebuild -project TBUIAutoTestDemo/TBUIAutoTestDemo.xcodeproj -scheme 
   -configuration Release -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
 deploy:
   provider: releases
-  api_key:
+  token:
     secure: rMJzKWZbmydfNYVyVQerU2z4/FHLl/dg02GUFSLODB1JT/016Q1RVS/Hs8G6uYCrdRuoNIWxHyVaoIxfZdfkwt1nrSwJuq7T3A9Wm2lI+lE52iU7M+GMaeR3Uu2NCinzDDzono1qXhdOsPO0HHTG+XkDuwr9t3NjgGzT74DBvsexn27dtO1I1F+2KFDQRabEOqki1bUSUxcyWpJTkG7ZLy5NciiRZibtzdXn0jDq9y0hf26hWV6/GIGD15X5Pl+jBpsavSOqLD81sRAScesvM1BUluhdQ9eb+L3A8chGoD0A7Ck4cUPKpQtETGxxQo7jR+QHhGW9718VktmQeIAg8//aXi5oPTfFgUtEHLh+i7YAZU9WZA9ll3uTwIrvJrdGZj4qVJYgm1Ni/t7XhLIMRerNWahs++5VSpIyXZNL+NrbReiWSZIS0aGB7U4z11K4l/jOMBx48IHxhXDGH37+IUcH4WjxUREiBbsfeRbqZ5zJz6KgyW9LI7zLKIzDQsfjD8BV2m17WUDiTFZU3z4Dvg9CQjn9NK132eyPhqlWhfCWsuYidjodTqt+x079Rax7a/6lMH52mESC7Y0EWafeI2omU0fPRB0SE8CZ99aPisDLKXAZ3CxuRMRWkh0D3xLVKF2/bKfcSoK6pCjU/VZc84HLRxEcjMMIMYHrbpja5Tw=
   file: TBUIAutoTest.framework.zip
-  skip_cleanup: true
+  cleanup: true
   on:
     repo: yulingtianxia/TBUIAutoTest
     tags: true
